@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recetas_flutter/screens/home_screen.dart';
+import 'package:recetas_flutter/screens/recipe_detail_page.dart';
 import 'package:recetas_flutter/screens/recipes_screen.dart';
 import 'package:recetas_flutter/screens/about_screen.dart';
 
