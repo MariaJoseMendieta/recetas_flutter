@@ -13,10 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //Establece la pantalla inicial que se muestra al abrir la app.
       initialRoute: 'home_screen',
+      //Define las rutas de navegación que usará la aplicación.
       routes: {
+        //Ruta para la pantalla de inicio.
         'home_screen': (context) => HomeScreen(),
+        //Ruta para la pantalla de recetas.
         'recipes_screen': (context) => RecipesScreen(),
+        //Ruta para la pantalla de información "Acerca de".
         'about_screen': (context) => AboutScreen(),
       },
     );

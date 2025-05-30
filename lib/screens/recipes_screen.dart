@@ -245,7 +245,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
             ),
           ),
           Expanded(
-            //Lista desplazable (scrollable)
+            //Lista desplazable (scrollable) de recetas filtradas
             child: ListView.builder(
               //Le dice a la lista cuántos elementos debe mostrar
               itemCount: filteredRecipes.length,

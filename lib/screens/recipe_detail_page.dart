@@ -24,7 +24,7 @@ class RecipeDetailPage extends StatelessWidget {
         ),
       ),
       drawer: AppDrawer(),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +34,21 @@ class RecipeDetailPage extends StatelessWidget {
               height: 200.0,
               width: double.infinity,
               fit: BoxFit.cover,
+              //Manejo de errores en la carga de imagen
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: 200.0,
+                  width: double.infinity,
+                  color: Colors.grey[300],
+                  child: Icon(Icons.broken_image, size: 60),
+                );
+              },
             ),
+            Text(
+              recipe.title,
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8.0),
             Text(
               'Pasos:',
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
