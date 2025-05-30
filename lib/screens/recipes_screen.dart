@@ -9,7 +9,8 @@ class RecipesScreen extends StatefulWidget {
 }
 
 class _RecipesScreenState extends State<RecipesScreen> {
-  final List<Recipe> recipes = [
+  //Lista de todas las recetas que se mostrarán en la pantalla
+  final List<Recipe> allRecipes = [
     Recipe(
       title: 'Bandeja Paisa',
       imageUrl:
@@ -183,10 +184,19 @@ class _RecipesScreenState extends State<RecipesScreen> {
     ),
   ];
 
-  // String selectedType = 'Todas';
+  //Define el tipo de receta que se desea ver
+  String selectedType = 'Todas';
 
   @override
   Widget build(BuildContext context) {
+    //Filtra las recetas y devuelve solo las que coinciden con el tipo seleccionado
+    List<Recipe> filteredRecipes =
+        selectedType ==
+                'Todas' //¿El usuario eligió “Todas”?
+            ? allRecipes
+            //Para cada receta r, ¿su type es igual al valor seleccionado? Si sí, esa receta se incluye en el resultado.
+            : allRecipes.where((r) => r.type == selectedType).toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFFFB74D),
@@ -202,42 +212,80 @@ class _RecipesScreenState extends State<RecipesScreen> {
           },
         ),
       ),
+      //Menú lateral
       drawer: AppDrawer(),
-      //Lista desplazable (scrollable)
-      body: ListView.builder(
-        //Le dice a la lista cuántos elementos debe mostrar
-        itemCount: recipes.length,
-        //Esta es una función que se ejecuta para construir cada ítem de la lista. Se repite tantas veces como el itemCount
-        itemBuilder: (BuildContext context, int index) {
-          //Obtenemos la receta correspondiente al índice actual desde la lista recipes
-          final recipe = recipes[index];
-          return Card(
-            //Establece un margen externo
-            margin: EdgeInsets.all(10.0),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RecipeDetailPage(recipe: recipe),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(12.0),
+            child: DropdownButton<String>(
+              //Define cuál es la opción actualmente seleccionada en el menú
+              value: selectedType,
+              //Qué hacer cuando el usuario cambia la opción del menú
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    //Actualiza la opción seleccionada
+                    selectedType = value;
+                  });
+                }
+              },
+              //Define las opciones que aparecerán en el menú
+              items: [
+                DropdownMenuItem(
+                  value:
+                      'Todas', //Valor que se guarda al seleccionar esa opción
+                  child: Text(
+                    'Todas',
+                  ), //Widget que se muestra en pantalla (en este caso, un texto)
+                ),
+                DropdownMenuItem(value: 'Dulce', child: Text('Dulce')),
+                DropdownMenuItem(value: 'Salada', child: Text('Salada')),
+              ],
+            ),
+          ),
+          Expanded(
+            //Lista desplazable (scrollable)
+            child: ListView.builder(
+              //Le dice a la lista cuántos elementos debe mostrar
+              itemCount: filteredRecipes.length,
+              //Esta es una función que se ejecuta para construir cada ítem de la lista. Se repite tantas veces como el itemCount
+              itemBuilder: (BuildContext context, int index) {
+                //Obtenemos la receta correspondiente al índice actual desde la lista recipes
+                final recipe = filteredRecipes[index];
+                return Card(
+                  //Establece un margen externo
+                  margin: EdgeInsets.all(10.0),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => RecipeDetailPage(recipe: recipe),
+                        ),
+                      );
+                    },
+                    //La imagen de la receta se carga desde una URL en internet y se coloca a la izquierda del título
+                    leading: Image.network(
+                      recipe.imageUrl,
+                      width: 50.0,
+                      height: 50.0,
+                      fit: BoxFit.cover,
+                      //Si hay un error al cargar la imagen, en lugar de dejar un espacio en blanco o romper la app, muestra el ícono
+                      errorBuilder:
+                          (context, error, stackTrace) =>
+                              Icon(Icons.broken_image),
+                    ),
+                    //Muestra el título de la receta como texto principal del ListTile
+                    title: Text(recipe.title),
+                    subtitle: Text('Tipo: ${recipe.type}'),
                   ),
                 );
               },
-              //La imagen de la receta se carga desde una URL en internet y se coloca a la izquierda del título
-              leading: Image.network(
-                recipe.imageUrl,
-                width: 50.0,
-                height: 50.0,
-                fit: BoxFit.cover,
-                //Si hay un error al cargar la imagen, en lugar de dejar un espacio en blanco o romper la app, muestra el ícono
-                errorBuilder:
-                    (context, error, stackTrace) => Icon(Icons.broken_image),
-              ),
-              //Muestra el título de la receta como texto principal del ListTile
-              title: Text(recipe.title),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
