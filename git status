@@ -1,0 +1,29 @@
+[33mcommit 08abbd9e6c91b3f93fa93cdea61c8874f7d80cfa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mprueba[m[33m)[m
+Author: Maria Jose Mendieta Ortiz <majomendieta5@gmail.com>
+Date:   Fri May 30 14:54:55 2025 -0500
+
+    Comentarios y README
+
+[33mcommit d6141c9b99ae490966d8e9c437b04165742c87b6[m
+Author: Maria Jose Mendieta Ortiz <majomendieta5@gmail.com>
+Date:   Fri May 30 13:43:32 2025 -0500
+
+    Clasificación según el tipo de receta
+
+[33mcommit e742eb4d9711f9e41926502fdb00cf00c5ba75a4[m
+Author: Maria Jose Mendieta Ortiz <majomendieta5@gmail.com>
+Date:   Fri May 30 09:56:34 2025 -0500
+
+    Creación pantalla para mostrar el paso a paso de cada receta
+
+[33mcommit c305be7684b58c99f90ffd4f01935069bfb37f42[m
+Author: Maria Jose Mendieta Ortiz <majomendieta5@gmail.com>
+Date:   Fri May 30 09:56:17 2025 -0500
+
+    Creación pantalla para mostrar el paso a paso de cada receta
+
+[33mcommit db652a077ea381523c9b2dadaa904d88963c2dd4[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Maria Jose Mendieta Ortiz <majomendieta5@gmail.com>
+Date:   Thu May 29 13:51:14 2025 -0500
+
+    Interfaz app (Creación Drawer y páginas)
